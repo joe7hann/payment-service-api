@@ -26,6 +26,7 @@ urlpatterns = [
     path('api/v2/payment-user/', include('payment_user.urls')),
     path('api/v2/expired-payment/', include('expired_payment.urls')),
     # Nuevas rutas añadidas
+    path('api-docs/', include('rest_framework_swagger.urls')),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
