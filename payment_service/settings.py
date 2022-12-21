@@ -27,6 +27,7 @@ SECRET_KEY = 'django-insecure-5lwlo38z)r8oul!&hlbtf6_e2posu89ozfzwmy9_g1w+z)r(4w
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ['https://payment-service-api-production.up.railway.app']
 
 
 # Application definition
