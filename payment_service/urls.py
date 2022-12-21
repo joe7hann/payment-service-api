@@ -5,6 +5,7 @@ from rest_framework import permissions
 # Nuevos imports añadidos
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_framework_swagger.views import get_swagger_view
 
 # Vista general e información de la API
 schema_view = get_schema_view(
@@ -26,7 +27,6 @@ urlpatterns = [
     path('api/v2/payment-user/', include('payment_user.urls')),
     path('api/v2/expired-payment/', include('expired_payment.urls')),
     # Nuevas rutas añadidas
-    path('api-docs/', include('rest_framework_swagger.urls')),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
