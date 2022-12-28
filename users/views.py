@@ -56,5 +56,5 @@ class GetUsers(viewsets.ModelViewSet):
 #class GetUsers(viewsets.ReadOnlyModelViewSet):
     serializer_class = GetUserSerializer
     queryset = User.objects.all()
-    permission_classes = [permissions.IsAdminUser, permissions.IsAuthenticated] #IsAdminUser , IsAuthenticated
+    #permission_classes = [permissions.IsAdminUser, permissions.IsAuthenticated] #IsAdminUser , IsAuthenticated
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
