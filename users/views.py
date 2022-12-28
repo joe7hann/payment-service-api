@@ -23,7 +23,7 @@ class SignUpView(generics.GenericAPIView):
         if serializer.is_valid():
             serializer.save()
 
-            response = {"message": "El usuario se creó correctamente", "data": serializer.data}
+            response = {"ok":True,"message": "El usuario se creó correctamente", "data": serializer.data}
         
             return Response(data=response, status=status.HTTP_201_CREATED)
 
@@ -40,12 +40,12 @@ class LoginView(APIView):
         if user is not None:
             tokens = create_jwt_pair_for_user(user)
             idUser = User.objects.get(email=email)
-            response = {"message": "Logeado correctamente", "id": idUser.id ,"tokens": tokens}
+            response = {"ok":True,"message": "Logeado correctamente", "id": idUser.id ,"tokens": tokens}
 
             return Response(data=response, status=status.HTTP_200_OK)
 
         else:
-            return Response(data={"message": "Correo inválido o contraseña incorrecta"})
+            return Response(data={"ok":False,"message": "Correo inválido o contraseña incorrecta"})
 
     def get(self, request: Request):
         content = {"user": str(request.user), "auth": str(request.auth)}
