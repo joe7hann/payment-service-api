@@ -158,15 +158,15 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.UserRateThrottle'
     ],
     'DEFAULT_THROTTLE_RATES':{
-        'anon': '100/day',
-        'user':'100/day'
+        'anon': '1000/day',
+        'user':'1000/day'
     }
 }
 AUTH_USER_MODEL = "users.User"
 
 SIMPLET_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=2),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=2),
 
 }
 
