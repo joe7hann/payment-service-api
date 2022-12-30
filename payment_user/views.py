@@ -51,6 +51,18 @@ class OverdueViewSet(APIView):
         payments = payments = PaymentUser.objects.select_related('expiredpayment').filter(user_id=user_id)
         #payments = PaymentUser.objects.prefetch_related('pay_user').filter(user_id=user_id)
         serializer = OverdueSerializer(payments, many=True)
-        return Response(serializer.data)
+        return Response({
+            "ok": True,
+            "data": serializer.data
+        })
 
     
+class RemittanceAdminViewSet(APIView):
+    def get(self, request):
+        payments = PaymentUser.objects.select_related('service')
+        serializer = RemittanceSerializer(payments, many=True)
+        
+        return Response({
+            "ok": True,
+            "data": serializer.data
+        })
