@@ -1,15 +1,18 @@
 from .models import PaymentUser
-from .serializers import PaymentUserSerializer
+from expired_payment.models import ExpiredPayment
+from .serializers import PaymentUserSerializer, RemittanceSerializer, OverdueSerializer
 from rest_framework import viewsets 
+from rest_framework.views import APIView
 from expired_payment.models import ExpiredPayment
 from rest_framework.permissions import  AllowAny, IsAdminUser, IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
-
-
-
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+from rest_framework.response import Response
+from rest_framework import status
+from django.shortcuts import get_object_or_404
+
 class PaymentUserViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAdminUser, IsAuthenticated]
+    #permission_classes = [IsAdminUser, IsAuthenticated]
     queryset = PaymentUser.objects.all()
     serializer_class = PaymentUserSerializer
     filter_backends = [DjangoFilterBackend]
@@ -33,4 +36,21 @@ class PaymentUserViewSet(viewsets.ModelViewSet):
             expired_payment.save()
 
         return response
+class RemittanceViewSet(APIView):
+    def get(self, request, user_id):
+        payments = PaymentUser.objects.select_related('service').filter(user_id=user_id)
+        serializer = RemittanceSerializer(payments, many=True)
+        
+        return Response({
+            "ok": True,
+            "data": serializer.data
+        })
 
+class OverdueViewSet(APIView):
+    def get(self, request, user_id):
+        payments = payments = PaymentUser.objects.select_related('expiredpayment').filter(user_id=user_id)
+        #payments = PaymentUser.objects.prefetch_related('pay_user').filter(user_id=user_id)
+        serializer = OverdueSerializer(payments, many=True)
+        return Response(serializer.data)
+
+    

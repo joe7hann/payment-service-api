@@ -25,7 +25,7 @@ from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 class ExpiredPaymentViewSet(viewsets.ViewSet):
     queryset = ExpiredPayment.objects.all()
     serializer_class = ExpiredPaymentSerializer
-    permission_classes = [permissions.IsAdminUser, permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAdminUser, permissions.IsAuthenticated]
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
     def list(self, request):
         queryset = self.queryset
